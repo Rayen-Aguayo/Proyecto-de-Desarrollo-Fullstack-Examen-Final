@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ms_reserva_y_anular_hora.dto.ApiResponse;
 import com.example.ms_reserva_y_anular_hora.dto.PedirHoraDTO;
 import com.example.ms_reserva_y_anular_hora.dto.PedirHoraResponse;
+import com.example.ms_reserva_y_anular_hora.service.PedirHoraService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
