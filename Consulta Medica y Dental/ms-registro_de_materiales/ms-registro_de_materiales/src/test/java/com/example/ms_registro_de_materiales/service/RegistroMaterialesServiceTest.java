@@ -1,4 +1,4 @@
-package com.example.ms_registro.de.materiales.service;
+package com.example.ms_registro_de_materiales.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -14,9 +14,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.example.ms_registro.de.materiales.dto.RegistroMaterialesDTO;
-import com.example.ms_registro.de.materiales.model.RegistroMateriales;
-import com.example.ms_registro.de.materiales.repository.RegistroMaterialesRepository;
+import com.example.ms_registro_de_materiales.dto.RegistroMaterialesDTO;
+import com.example.ms_registro_de_materiales.model.RegistroMateriales;
+import com.example.ms_registro_de_materiales.repository.RegistroMaterialesRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 

@@ -1,4 +1,4 @@
-package com.example.ms_registro.de.materiales.repository;
+package com.example.ms_registro_de_materiales.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.example.ms_registro.de.materiales.model.RegistroMateriales;
+import com.example.ms_registro_de_materiales.model.RegistroMateriales;
 
 @DataJpaTest
 @ActiveProfiles("test")

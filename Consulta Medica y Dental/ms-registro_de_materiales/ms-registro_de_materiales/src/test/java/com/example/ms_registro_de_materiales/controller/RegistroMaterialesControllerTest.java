@@ -1,9 +1,9 @@
-package com.example.ms_registro.de.materiales.controller;
+package com.example.ms_registro_de_materiales.controller;
 
-import com.example.ms_registro.de.materiales.dto.RegistroMaterialesDTO;
-import com.example.ms_registro.de.materiales.model.RegistroMateriales;
-import com.example.ms_registro.de.materiales.security.JwtUtil;
-import com.example.ms_registro.de.materiales.service.RegistroMaterialesService;
+import com.example.ms_registro_de_materiales.dto.RegistroMaterialesDTO;
+import com.example.ms_registro_de_materiales.model.RegistroMateriales;
+import com.example.ms_registro_de_materiales.security.JwtUtil;
+import com.example.ms_registro_de_materiales.service.RegistroMaterialesService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
