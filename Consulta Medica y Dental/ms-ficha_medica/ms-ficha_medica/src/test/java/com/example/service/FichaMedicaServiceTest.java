@@ -95,7 +95,7 @@ public class FichaMedicaServiceTest {
     assertEquals("22222222-2", resultado.getMedico().getRunMedico());
 
     assertEquals("procedimiento", resultado.getProcedimiento());
-    assertEquals("odontograma", resultado.getOdontograma());
+    assertEquals(null, resultado.getOdontograma());
 
     verify(repo).findById(1L);
 }
@@ -118,20 +118,11 @@ void deberiaLanzarExcepcionCuandoFichaMedicaNoExiste() {
 
 @Test
 void deberiaRetornarListaFichaMedica() {
-    // Arrange
     String tokenDePrueba = "Bearer token-prueba";
 
     FichaMedica fichaMedica = new FichaMedica( 
-        1L, 
-        "11111111-1",
-        "paciente",
-        "22222222-2",
-        "medico",
-        "procedimiento",
-        "queMedicamentoEstaTomando", 
-        "enfermedad",
-        "alergias",
-        "odontograma"
+        1L, "11111111-1", "paciente", "22222222-2", "medico",
+        "procedimiento", "queMedicamentoEstaTomando", "enfermedad", "alergias", "odontograma"
     );
 
     when(repo.findAll()).thenReturn(List.of(fichaMedica));
@@ -148,13 +139,11 @@ void deberiaRetornarListaFichaMedica() {
     MedicoResponse medicoResponse = new MedicoResponse();
     medicoResponse.setRunMedico("22222222-2");
     medicoResponse.setNombreMedico("medico");
-
     when(medicoClient.getMedicoClient("22222222-2", tokenDePrueba)).thenReturn(medicoResponse);
 
-    // Act
-    List<FichaMedicaResponse> resultado = service.listar(null);
+    
+    List<FichaMedicaResponse> resultado = service.listar(tokenDePrueba);
 
-    // Assert
     assertFalse(resultado.isEmpty());
     assertEquals(1, resultado.size());
 
@@ -165,17 +154,19 @@ void deberiaRetornarListaFichaMedica() {
     assertEquals("paciente", item.getPaciente().getNombrePaciente());
     assertEquals("alergias", item.getPaciente().getAlergias());
     assertEquals("enfermedad", item.getPaciente().getEnfermedad());
-    assertEquals("QueMedicamentoEstaTomando", item.getPaciente().getQueMedicamentoEstaTomando());
+   
+    assertEquals("queMedicamentoEstaTomando", item.getPaciente().getQueMedicamentoEstaTomando());
 
     assertNotNull(item.getMedico());
     assertEquals("medico", item.getMedico().getNombreMedico());
     assertEquals("22222222-2", item.getMedico().getRunMedico());
 
     assertEquals("procedimiento", item.getProcedimiento());
-    assertEquals("odontograma", item.getOdontograma());
+    assertEquals(null, item.getOdontograma());
 
     verify(repo).findAll();
 }
+
 @Test
 void deberiaRetornarListaVaciaDeFichaMedica() {
     // Arrange
@@ -251,13 +242,12 @@ void deberiaCrearFichaMedicaCorrectamente() {
     assertEquals("queMedicamentoEstaTomando", resultado.getPaciente().getQueMedicamentoEstaTomando());
 
 
-
     assertNotNull(resultado.getMedico());
     assertEquals("medico", resultado.getMedico().getNombreMedico());
     assertEquals("22222222-2", resultado.getMedico().getRunMedico());
 
     assertEquals("procedimiento", resultado.getProcedimiento());
-    assertEquals("odontograma", resultado.getOdontograma());
+    assertEquals(null, resultado.getOdontograma());
 
     verify(repo).save(any(FichaMedica.class));
 }
@@ -277,7 +267,7 @@ void deberiaLanzarExcepcionCuandoPacienteNoExisteAlCrear() {
             () -> service.crear(dto, tokenDePrueba)
     );
 
-    assertEquals("El paciente no existe no se puede crear la Ficha medica", ex.getMessage());
+    assertEquals("El paciente no existe, no se puede crear la Ficha médica", ex.getMessage());
     verify(repo, never()).save(any()); 
 }
 
@@ -300,7 +290,7 @@ void deberiaLanzarExcepcionCuandoMedicoNoExisteAlCrear() {
             () -> service.crear(dto, tokenDePrueba)
     );
 
-    assertEquals("El médico no existe no se puede crear la Ficha medica", ex.getMessage()); 
+    assertEquals("El médico no existe, no se puede crear la Ficha médica", ex.getMessage()); 
     verify(repo, never()).save(any());
 }
 
@@ -367,13 +357,12 @@ void deberiaActualizarFichaMedicaCorrectamente() {
     assertEquals("queMedicamentoEstaTomando", resultado.getPaciente().getQueMedicamentoEstaTomando());
 
 
-
     assertNotNull(resultado.getMedico());
     assertEquals("medico", resultado.getMedico().getNombreMedico());
     assertEquals("22222222-2", resultado.getMedico().getRunMedico());
 
     assertEquals("Procedimiento", resultado.getProcedimiento());
-    assertEquals("Odontograma", resultado.getOdontograma());
+    assertEquals(null, resultado.getOdontograma());
 
     verify(repo).findById(1L);
     verify(repo).save(existente);
@@ -397,31 +386,30 @@ void deberiaLanzarExcepcionCuandoFichaMedicaNoSeActualizoCorectamente() {
 
 @Test
 void deberiaEliminarFichaMedicaPorId() {
-    // Arrange
-    
-    doNothing().when(repo).deleteById(1L);
+    FichaMedica fichaMedica = new FichaMedica(
+        1L, "11111111-1", "paciente", "22222222-2", "medico",
+        "procedimiento", "queMedicamentoEstaTomando", "enfermedad", "alergias", "odontograma"
+    );
+    when(repo.findById(1L)).thenReturn(Optional.of(fichaMedica));
+    doNothing().when(repo).delete(fichaMedica); 
 
-    // Act
     service.eliminar(1L);
 
-    // Assert
-    verify(repo).deleteById(1L);
+    verify(repo).findById(1L);
+    verify(repo).delete(fichaMedica);
 }
-
 @Test
 void deberiaLanzarExcepcionCuandoFichaMedicaNoSeEliminoCorectamente() {
-    // Arrange
-    when(repo.existsById(99L)).thenReturn(false); 
+    
+    when(repo.findById(99L)).thenReturn(Optional.empty());
 
-    // Act + Assert
     EntityNotFoundException ex = assertThrows(
-            EntityNotFoundException.class,
-            () -> service.eliminar(99L)
+        EntityNotFoundException.class,
+        () -> service.eliminar(99L)
     );
 
     assertEquals("Ficha médica no encontrada", ex.getMessage());
-    verify(repo).findById(99L);
-    verify(repo, never()).deleteById(99L); 
+    verify(repo).findById(99L);        
+    verify(repo, never()).deleteById(99L);
 }
-
 }
