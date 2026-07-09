@@ -1,6 +1,5 @@
 package com.example.ms_reserva_y_anular_hora.controller;
 
-
 import com.example.ms_reserva_y_anular_hora.dto.MedicoResponse;
 import com.example.ms_reserva_y_anular_hora.dto.PacienteResponse;
 import com.example.ms_reserva_y_anular_hora.dto.PedirHoraDTO;
