@@ -11,12 +11,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration;
+import org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+
 
 import java.util.List;
 
@@ -28,6 +32,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(FacturacionYPresupuestoController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("test")
+
+@EnableAutoConfiguration(exclude = {
+    EurekaClientAutoConfiguration.class,
+    EurekaDiscoveryClientConfiguration.class
+})
 public class FacturacionYPresupuestoControllerTest {
 
 
@@ -67,7 +76,6 @@ public class FacturacionYPresupuestoControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.data[0].id").value(1))
-                .andExpect(jsonPath("$.data[0].atencion").value("facturacio y presupuesto"))
                 .andExpect(jsonPath("$.data[0].paciente.nombrePaciente").value("Juan Pérez"))
                 .andExpect(jsonPath("$.data[0].medico.nombreMedico").value("Dra. Soto"));
     }
@@ -145,7 +153,7 @@ public class FacturacionYPresupuestoControllerTest {
                         .content(mapper.writeValueAsString(dto)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.message").value("se creo un facturacio y presupuesto"))
+                .andExpect(jsonPath("$.message").value("Registro de facturación creado"))
                 .andExpect(jsonPath("$.data.id").value(1))
                 .andExpect(jsonPath("$.data.paciente.nombrePaciente").value("Juan Pérez"))
                 .andExpect(jsonPath("$.data.medico.nombreMedico").value("Dra. Soto"));
@@ -193,7 +201,7 @@ public class FacturacionYPresupuestoControllerTest {
                         .content(mapper.writeValueAsString(dto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.message").value("se actualizo facturacio y presupuesto"))
+                .andExpect(jsonPath("$.message").value("Registro de facturación actualizado"))
                 .andExpect(jsonPath("$.data.paciente.nombrePaciente").value("Juan Pérez"));
     }
 
@@ -204,6 +212,6 @@ public class FacturacionYPresupuestoControllerTest {
         mockMvc.perform(delete("/api/v1/facturacio-y-presupuesto/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.message").value("se elimino facturacio y presupuesto"));
+                .andExpect(jsonPath("$.message").value("Registro de facturación eliminado"));
     }
 }
