@@ -115,7 +115,7 @@ public class OpinionPacienteController {
             ApiResponse.<OpinionPacienteResponse>builder()
                 .success(true)
                 .message("Detalle de la opinión obtenido")
-                .data(opinionPacienteService.obtener(id,token))
+                .data(opinion)
                 .build()
         );
     }
