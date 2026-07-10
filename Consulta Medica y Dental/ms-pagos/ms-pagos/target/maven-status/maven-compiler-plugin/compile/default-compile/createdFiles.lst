@@ -13,7 +13,6 @@ com\example\ms_pagos\config\OpenApiConfig.class
 com\example\ms_pagos\controller\PagosController.class
 com\example\ms_pagos\security\JwtUtil.class
 com\example\ms_pagos\dto\PagosResponse.class
-com\example\ms_pagos\config\TestSecurityConfig.class
 com\example\ms_pagos\model\Pagos.class
 com\example\ms_pagos\client\PacienteClient.class
 com\example\ms_pagos\dto\PagosDTO.class

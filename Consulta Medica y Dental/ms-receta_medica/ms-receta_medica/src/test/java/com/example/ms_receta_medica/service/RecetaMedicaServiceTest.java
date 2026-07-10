@@ -1,4 +1,4 @@
-package com.example.ms_receta.medica.service;
+package com.example.ms_receta_medica.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -14,12 +14,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.example.ms_receta.medica.client.MedicoClient;
-import com.example.ms_receta.medica.dto.MedicoResponse;
-import com.example.ms_receta.medica.dto.RecetaMedicaDTO;
-import com.example.ms_receta.medica.dto.RecetaMedicaResponce;
-import com.example.ms_receta.medica.model.RecetaMedica;
-import com.example.ms_receta.medica.repository.RecetaMedicaRepository;
+import com.example.ms_receta_medica.client.MedicoClient;
+import com.example.ms_receta_medica.dto.MedicoResponse;
+import com.example.ms_receta_medica.dto.RecetaMedicaDTO;
+import com.example.ms_receta_medica.dto.RecetaMedicaResponce;
+import com.example.ms_receta_medica.model.RecetaMedica;
+import com.example.ms_receta_medica.repository.RecetaMedicaRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 

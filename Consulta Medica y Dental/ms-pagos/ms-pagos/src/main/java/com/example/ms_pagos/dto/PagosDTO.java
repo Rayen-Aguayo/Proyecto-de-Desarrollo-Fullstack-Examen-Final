@@ -15,7 +15,7 @@ public class PagosDTO {
     private String runPaciente;  
     @NotBlank(message = "El nombre del paciente es obligatorio")
     private String nombrePaciente;
-    @NotBlank(message = "La fecha es obligatoria")
+    @NotNull(message = "La fecha es obligatoria")
     private LocalDate fecha;
     @NotNull(message = "La hora es obligatoria")
     private LocalTime hora;

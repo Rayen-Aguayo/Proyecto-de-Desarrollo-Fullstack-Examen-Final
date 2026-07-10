@@ -1,26 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.example.ms_pagos.controller.PagosControllerTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 6.876 s <<< FAILURE! -- in com.example.ms_pagos.controller.PagosControllerTest
-com.example.ms_pagos.controller.PagosControllerTest.debeActualizarPago -- Time elapsed: 0.238 s <<< FAILURE!
-java.lang.AssertionError: Status expected:<200> but was:<500>
-	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:61)
-	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:128)
-	at org.springframework.test.web.servlet.result.StatusResultMatchers.lambda$matcher$9(StatusResultMatchers.java:640)
-	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:214)
-	at com.example.ms_pagos.controller.PagosControllerTest.debeActualizarPago(PagosControllerTest.java:214)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-
-com.example.ms_pagos.controller.PagosControllerTest.debeCrearPago -- Time elapsed: 0.048 s <<< FAILURE!
-java.lang.AssertionError: Status expected:<201> but was:<500>
-	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:61)
-	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:128)
-	at org.springframework.test.web.servlet.result.StatusResultMatchers.lambda$matcher$9(StatusResultMatchers.java:640)
-	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:214)
-	at com.example.ms_pagos.controller.PagosControllerTest.debeCrearPago(PagosControllerTest.java:163)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.695 s -- in com.example.ms_pagos.controller.PagosControllerTest
