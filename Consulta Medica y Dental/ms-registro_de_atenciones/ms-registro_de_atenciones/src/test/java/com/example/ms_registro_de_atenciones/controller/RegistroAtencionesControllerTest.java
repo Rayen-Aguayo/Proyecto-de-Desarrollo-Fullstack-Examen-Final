@@ -1,8 +1,13 @@
-package com.example.ms_registro.de.atenciones.controller;
+package com.example.ms_registro_de_atenciones.controller;
 
-import com.example.ms_registro.de.atenciones.dto.*;
-import com.example.ms_registro.de.atenciones.security.JwtUtil;
-import com.example.ms_registro.de.atenciones.service.RegistroAtencionesService;
+
+import com.example.ms_registro_de_atenciones.dto.MedicoResponse;
+import com.example.ms_registro_de_atenciones.dto.PacienteResponse;
+import com.example.ms_registro_de_atenciones.dto.PagosResponse;
+import com.example.ms_registro_de_atenciones.dto.RegistroAtencionesDTO;
+import com.example.ms_registro_de_atenciones.dto.RegistroAtencionesResponse;
+import com.example.ms_registro_de_atenciones.security.JwtUtil;
+import com.example.ms_registro_de_atenciones.service.RegistroAtencionesService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
@@ -26,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(RegistroAtencionesController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("test")
-class RegistroAtencionesControllerTest {
+public class RegistroAtencionesControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

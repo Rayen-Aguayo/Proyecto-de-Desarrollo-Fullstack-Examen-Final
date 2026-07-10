@@ -1,10 +1,12 @@
-package com.example.ms_registro.de.atenciones.repository;
+package com.example.ms_registro_de_atenciones.repository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
-import com.example.ms_registro.de.atenciones.model.RegistroAtenciones;
+
+import com.example.ms_registro_de_atenciones.model.RegistroAtenciones;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -14,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @ActiveProfiles("test")
-class RegistroAtencionesRepositoryTest {
+public class RegistroAtencionesRepositoryTest {
 
     @Autowired
     private RegistroAtencionesRepository repository;
