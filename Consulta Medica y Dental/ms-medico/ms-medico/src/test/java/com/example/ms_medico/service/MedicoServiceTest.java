@@ -125,7 +125,7 @@ public class MedicoServiceTest {
         assertEquals("123456789", resultado.getNroTelefono());
         assertEquals("especialidad", resultado.getEspecialidad());
         assertEquals("firmaMedico", resultado.getFirmaMedico());
-        verify(repo).findById("1-2");
+        verify(repo).findById("22222222-2");
         verify(repo).save(existente);
     }
 
