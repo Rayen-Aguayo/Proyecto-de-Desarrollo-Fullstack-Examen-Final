@@ -1,20 +1,14 @@
-package com.example.ms_reserva_y_anular_hora.controller;
+package com.example.ms_registro.de.atenciones.controller;
 
-import com.example.ms_reserva_y_anular_hora.dto.MedicoResponse;
-import com.example.ms_reserva_y_anular_hora.dto.PacienteResponse;
-import com.example.ms_reserva_y_anular_hora.dto.PedirHoraDTO;
-import com.example.ms_reserva_y_anular_hora.dto.PedirHoraResponse;
-import com.example.ms_reserva_y_anular_hora.security.JwtUtil;
-import com.example.ms_reserva_y_anular_hora.service.PedirHoraService;
+import com.example.ms_registro.de.atenciones.dto.*;
+import com.example.ms_registro.de.atenciones.security.JwtUtil;
+import com.example.ms_registro.de.atenciones.service.RegistroAtencionesService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration;
-import org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -29,28 +23,22 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(PedirHoraController.class)
+@WebMvcTest(RegistroAtencionesController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("test")
-
-@EnableAutoConfiguration(exclude = {
-    EurekaClientAutoConfiguration.class,
-    EurekaDiscoveryClientConfiguration.class
-})
-
-public class PedirHoraControllerTest {
+class RegistroAtencionesControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockitoBean
-    private PedirHoraService pedirHoraService;
+    private RegistroAtencionesService service;
 
     @MockitoBean
     private JwtUtil jwtUtil;
 
     @Test
-    void debeListarReservas() throws Exception {
+    void debeListarRegistrosDeAtenciones() throws Exception {
         PacienteResponse paciente = new PacienteResponse();
         paciente.setRunPaciente("11111111-1");
         paciente.setNombrePaciente("Juan Pérez");
@@ -58,31 +46,36 @@ public class PedirHoraControllerTest {
         MedicoResponse medico = new MedicoResponse();
         medico.setRunMedico("22222222-2");
         medico.setNombreMedico("Dra. Soto");
-        medico.setEspecialidad("Odontología");
 
-        PedirHoraResponse response = PedirHoraResponse.builder()
+        PagosResponse pago = new PagosResponse();
+        pago.setId(1L);
+        pago.setTotal(50000.0);
+        pago.setEstado("PAGADO");
+
+        RegistroAtencionesResponse response = RegistroAtencionesResponse.builder()
                 .id(1L)
                 .paciente(paciente)
                 .medico(medico)
+                .pago(pago)
                 .fecha(LocalDate.of(2026, 6, 20))
-                .horaDeAtencion(LocalTime.of(10, 30))
-                .atencion("Consulta dental")
+                .hora(LocalTime.of(10, 30))
+                .tratamientoRealizado("Limpieza dental")
                 .build();
 
-        when(pedirHoraService.listar(anyString())).thenReturn(List.of(response));
+        when(service.listar(anyString())).thenReturn(List.of(response));
 
-        mockMvc.perform(get("/api/v1/reservar-y-anular-hora")
+        mockMvc.perform(get("/api/v1/registro-atenciones")
                         .header("Authorization", "Bearer token-de-prueba"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.data[0].id").value(1))
-                .andExpect(jsonPath("$.data[0].atencion").value("Consulta dental"))
+                .andExpect(jsonPath("$.data[0].tratamientoRealizado").value("Limpieza dental"))
                 .andExpect(jsonPath("$.data[0].paciente.nombrePaciente").value("Juan Pérez"))
                 .andExpect(jsonPath("$.data[0].medico.nombreMedico").value("Dra. Soto"));
     }
 
     @Test
-    void debeObtenerReservaPorId() throws Exception {
+    void debeObtenerRegistroPorId() throws Exception {
         PacienteResponse paciente = new PacienteResponse();
         paciente.setRunPaciente("11111111-1");
         paciente.setNombrePaciente("Juan Pérez");
@@ -90,42 +83,48 @@ public class PedirHoraControllerTest {
         MedicoResponse medico = new MedicoResponse();
         medico.setRunMedico("22222222-2");
         medico.setNombreMedico("Dra. Soto");
-        medico.setEspecialidad("Odontología");
 
-        PedirHoraResponse response = PedirHoraResponse.builder()
+        PagosResponse pago = new PagosResponse();
+        pago.setId(1L);
+        pago.setTotal(50000.0);
+        pago.setEstado("PAGADO");
+
+        RegistroAtencionesResponse response = RegistroAtencionesResponse.builder()
                 .id(1L)
                 .paciente(paciente)
                 .medico(medico)
+                .pago(pago)
                 .fecha(LocalDate.of(2026, 6, 20))
-                .horaDeAtencion(LocalTime.of(10, 30))
-                .atencion("Consulta dental")
+                .hora(LocalTime.of(10, 30))
+                .tratamientoRealizado("Limpieza dental")
                 .build();
 
-        when(pedirHoraService.obtener(eq(1L), anyString())).thenReturn(response);
+        when(service.obtener(eq(1L), anyString())).thenReturn(response);
 
-        mockMvc.perform(get("/api/v1/reservar-y-anular-hora/1")
+        mockMvc.perform(get("/api/v1/registro-atenciones/1")
                         .header("Authorization", "Bearer token-de-prueba"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.data.id").value(1))
-                .andExpect(jsonPath("$.data.atencion").value("Consulta dental"))
-                .andExpect(jsonPath("$.data.paciente.nombrePaciente").value("Juan Pérez"))
+                .andExpect(jsonPath("$.data.tratamientoRealizado").value("Limpieza dental"))
                 .andExpect(jsonPath("$.data.medico.nombreMedico").value("Dra. Soto"));
     }
 
     @Test
-    void debeCrearReserva() throws Exception {
+    void debeCrearRegistroDeAtenciones() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
-        PedirHoraDTO dto = new PedirHoraDTO();
-        dto.setRunPaciente("11111111-1");
-        dto.setNombrePaciente("Juan Pérez");
-        dto.setRunMedico("22222222-2");
-        dto.setNombreMedico("Dra. Soto");
+        RegistroAtencionesDTO dto = new RegistroAtencionesDTO();
+        dto.setNompaciente("Juan Pérez");
+        dto.setRunpaciente("11111111-1");
+        dto.setNommedico("Dra. Soto");
+        dto.setRunmedico("22222222-2");
+        dto.setTotal(50000.0);
+        dto.setIdPago(1);
         dto.setFecha(LocalDate.of(2026, 6, 20));
-        dto.setHoraDeAtencion(LocalTime.of(10, 30));
-        dto.setAtencion("Consulta dental");
+        dto.setHora(LocalTime.of(10, 30));
+        dto.setTratamientoRealizado("Limpieza dental");
 
         PacienteResponse paciente = new PacienteResponse();
         paciente.setRunPaciente("11111111-1");
@@ -134,45 +133,51 @@ public class PedirHoraControllerTest {
         MedicoResponse medico = new MedicoResponse();
         medico.setRunMedico("22222222-2");
         medico.setNombreMedico("Dra. Soto");
-        medico.setEspecialidad("Odontología");
 
-        PedirHoraResponse response = PedirHoraResponse.builder()
+        PagosResponse pago = new PagosResponse();
+        pago.setId(1L);
+        pago.setTotal(50000.0);
+        pago.setEstado("PAGADO");
+
+        RegistroAtencionesResponse response = RegistroAtencionesResponse.builder()
                 .id(1L)
                 .paciente(paciente)
                 .medico(medico)
+                .pago(pago)
                 .fecha(LocalDate.of(2026, 6, 20))
-                .horaDeAtencion(LocalTime.of(10, 30))
-                .atencion("Consulta dental")
+                .hora(LocalTime.of(10, 30))
+                .tratamientoRealizado("Limpieza dental")
                 .build();
 
-        when(pedirHoraService.crear(any(PedirHoraDTO.class), anyString())).thenReturn(response);
+        when(service.crear(any(RegistroAtencionesDTO.class), anyString())).thenReturn(response);
 
-        mockMvc.perform(post("/api/v1/reservar-y-anular-hora")
+        mockMvc.perform(post("/api/v1/registro-atenciones")
                         .header("Authorization", "Bearer token-de-prueba")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(dto)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.message").value("Se reservo la hora"))
+                .andExpect(jsonPath("$.message").value("Registro de atenciones creado"))
                 .andExpect(jsonPath("$.data.id").value(1))
-                .andExpect(jsonPath("$.data.atencion").value("Consulta dental"))
-                .andExpect(jsonPath("$.data.paciente.nombrePaciente").value("Juan Pérez"))
-                .andExpect(jsonPath("$.data.medico.nombreMedico").value("Dra. Soto"));
+                .andExpect(jsonPath("$.data.tratamientoRealizado").value("Limpieza dental"))
+                .andExpect(jsonPath("$.data.paciente.nombrePaciente").value("Juan Pérez"));
     }
 
     @Test
-    void debeActualizarReserva() throws Exception {
+    void debeActualizarRegistroDeAtenciones() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
-        PedirHoraDTO dto = new PedirHoraDTO();
-        dto.setRunPaciente("11111111-1");
-        dto.setNombrePaciente("Juan Pérez");
-        dto.setRunMedico("22222222-2");
-        dto.setNombreMedico("Dra. Soto");
+        RegistroAtencionesDTO dto = new RegistroAtencionesDTO();
+        dto.setNompaciente("Juan Pérez");
+        dto.setRunpaciente("11111111-1");
+        dto.setNommedico("Dra. Soto");
+        dto.setRunmedico("22222222-2");
+        dto.setTotal(60000.0);
+        dto.setIdPago(1);
         dto.setFecha(LocalDate.of(2026, 6, 25));
-        dto.setHoraDeAtencion(LocalTime.of(11, 0));
-        dto.setAtencion("Control dental");
+        dto.setHora(LocalTime.of(11, 0));
+        dto.setTratamientoRealizado("Control dental");
 
         PacienteResponse paciente = new PacienteResponse();
         paciente.setRunPaciente("11111111-1");
@@ -181,38 +186,42 @@ public class PedirHoraControllerTest {
         MedicoResponse medico = new MedicoResponse();
         medico.setRunMedico("22222222-2");
         medico.setNombreMedico("Dra. Soto");
-        medico.setEspecialidad("Odontología");
 
-        PedirHoraResponse response = PedirHoraResponse.builder()
+        PagosResponse pago = new PagosResponse();
+        pago.setId(1L);
+        pago.setTotal(60000.0);
+        pago.setEstado("PAGADO");
+
+        RegistroAtencionesResponse response = RegistroAtencionesResponse.builder()
                 .id(1L)
                 .paciente(paciente)
                 .medico(medico)
+                .pago(pago)
                 .fecha(LocalDate.of(2026, 6, 25))
-                .horaDeAtencion(LocalTime.of(11, 0))
-                .atencion("Control dental")
+                .hora(LocalTime.of(11, 0))
+                .tratamientoRealizado("Control dental")
                 .build();
 
-        when(pedirHoraService.actualizar(eq(1L), any(PedirHoraDTO.class), anyString()))
-                .thenReturn(response);
+        when(service.actualizar(eq(1L), any(RegistroAtencionesDTO.class), anyString())).thenReturn(response);
 
-        mockMvc.perform(put("/api/v1/reservar-y-anular-hora/1")
+        mockMvc.perform(put("/api/v1/registro-atenciones/1")
                         .header("Authorization", "Bearer token-de-prueba")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(dto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.message").value("Se cambio la hora"))
-                .andExpect(jsonPath("$.data.atencion").value("Control dental"))
+                .andExpect(jsonPath("$.message").value("Registro de atenciones actualizado"))
+                .andExpect(jsonPath("$.data.tratamientoRealizado").value("Control dental"))
                 .andExpect(jsonPath("$.data.paciente.nombrePaciente").value("Juan Pérez"));
     }
 
     @Test
-    void debeEliminarReserva() throws Exception {
-        doNothing().when(pedirHoraService).eliminar(1L);
+    void debeEliminarRegistroDeAtenciones() throws Exception {
+        doNothing().when(service).eliminar(1L);
 
-        mockMvc.perform(delete("/api/v1/reservar-y-anular-hora/1"))
+        mockMvc.perform(delete("/api/v1/registro-atenciones/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.message").value("Se anulo la hora"));
+                .andExpect(jsonPath("$.message").value("Registro de atenciones eliminado"));
     }
 }

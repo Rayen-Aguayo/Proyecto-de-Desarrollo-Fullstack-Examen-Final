@@ -8,8 +8,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration;
+import org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -26,7 +29,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(RegistroMaterialesController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("test")
-class RegistroMaterialesControllerTest {
+
+@EnableAutoConfiguration(exclude = {
+    EurekaClientAutoConfiguration.class,
+    EurekaDiscoveryClientConfiguration.class
+})
+
+public class RegistroMaterialesControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
