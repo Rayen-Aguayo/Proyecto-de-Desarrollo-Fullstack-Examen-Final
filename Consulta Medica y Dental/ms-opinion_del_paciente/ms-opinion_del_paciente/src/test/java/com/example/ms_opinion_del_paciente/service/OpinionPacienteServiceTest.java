@@ -128,7 +128,8 @@ void deberiaRetornarOpinionPaciente() {
     when(medicoClient.getMedicoClient("1-2", tokenDePrueba)).thenReturn(medicoResponse);
 
     // Act
-    List<OpinionPacienteResponse> resultado = service.listar(null);
+    List<OpinionPacienteResponse> resultado = service.listar(tokenDePrueba);
+
 
     // Assert
     assertFalse(resultado.isEmpty());
@@ -268,13 +269,14 @@ void deberiaLanzarExcepcionCuandoMedicoNoExisteAlCrear() {
 @Test
 void deberiaEliminarOpinionPacientePorId() {
     // Arrange
-    
+    when(repo.existsById(1L)).thenReturn(true);
     doNothing().when(repo).deleteById(1L);
 
     // Act
     service.eliminar(1L);
 
     // Assert
+    verify(repo).existsById(1L);
     verify(repo).deleteById(1L);
 }
 
@@ -290,7 +292,7 @@ void deberiaLanzarExcepcionCuandoOpinionPacienteNoSeEliminoCorectamente() {
     );
 
     assertEquals("No se puede eliminar, opinión no encontrada", ex.getMessage());
-    verify(repo).findById(99L);
+    verify(repo).existsById(99L);
     verify(repo, never()).deleteById(99L); 
 }
 }
