@@ -1,4 +1,4 @@
-package com.example.ms_registro.de.atenciones.service;
+package com.example.ms_registro_de_atenciones.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -15,16 +15,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.example.ms_registro.de.atenciones.client.MedicoClient;
-import com.example.ms_registro.de.atenciones.client.PacienteClient;
-import com.example.ms_registro.de.atenciones.client.PagosClient;
-import com.example.ms_registro.de.atenciones.dto.MedicoResponse;
-import com.example.ms_registro.de.atenciones.dto.PacienteResponse;
-import com.example.ms_registro.de.atenciones.dto.PagosResponse;
-import com.example.ms_registro.de.atenciones.dto.RegistroAtencionesDTO;
-import com.example.ms_registro.de.atenciones.dto.RegistroAtencionesResponse;
-import com.example.ms_registro.de.atenciones.model.RegistroAtenciones;
-import com.example.ms_registro.de.atenciones.repository.RegistroAtencionesRepository;
+import com.example.ms_registro_de_atenciones.client.MedicoClient;
+import com.example.ms_registro_de_atenciones.client.PacienteClient;
+import com.example.ms_registro_de_atenciones.client.PagosClient;
+import com.example.ms_registro_de_atenciones.dto.MedicoResponse;
+import com.example.ms_registro_de_atenciones.dto.PacienteResponse;
+import com.example.ms_registro_de_atenciones.dto.PagosResponse;
+import com.example.ms_registro_de_atenciones.dto.RegistroAtencionesDTO;
+import com.example.ms_registro_de_atenciones.dto.RegistroAtencionesResponse;
+import com.example.ms_registro_de_atenciones.model.RegistroAtenciones;
+import com.example.ms_registro_de_atenciones.repository.RegistroAtencionesRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
