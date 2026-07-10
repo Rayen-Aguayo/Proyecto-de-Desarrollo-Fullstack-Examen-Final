@@ -1,7 +1,6 @@
-package com.example.controller;
+package com.example.ms_ficha_medica.controller;
 
 
-import com.example.ms_ficha_medica.controller.FichaMedicaController;
 import com.example.ms_ficha_medica.dto.FichaMedicaDTO;
 import com.example.ms_ficha_medica.dto.FichaMedicaResponse;
 import com.example.ms_ficha_medica.dto.MedicoResponse;
@@ -37,7 +36,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     EurekaClientAutoConfiguration.class,
     EurekaDiscoveryClientConfiguration.class
 })
-
 public class FichaMedicaControllerTest {
 
     @Autowired
@@ -61,7 +59,6 @@ public class FichaMedicaControllerTest {
         MedicoResponse medico = new MedicoResponse();
         medico.setRunMedico("22222222-2");
         medico.setNombreMedico("Dra. Soto");
-        medico.setEspecialidad("Odontología");
 
         return FichaMedicaResponse.builder()
                 .id(1L)
