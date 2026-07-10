@@ -25,7 +25,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(RecetaMedicaController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("test")
-class RecetaMedicaControllerTest {
+
+@EnableAutoConfiguration(exclude = {
+    EurekaClientAutoConfiguration.class,
+    EurekaDiscoveryClientConfiguration.class
+})
+
+public class RecetaMedicaControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
