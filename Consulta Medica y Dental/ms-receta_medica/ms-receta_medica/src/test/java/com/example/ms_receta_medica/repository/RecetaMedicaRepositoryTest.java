@@ -1,4 +1,4 @@
-package test.java.com.example.ms_receta_medica.repository;
+package com.example.ms_receta_medica.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

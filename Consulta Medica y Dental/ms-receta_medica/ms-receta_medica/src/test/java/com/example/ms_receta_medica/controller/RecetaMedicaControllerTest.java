@@ -1,8 +1,8 @@
-package com.example.ms_receta.medica.controller;
+package com.example.ms_receta_medica.controller;
 
-import com.example.ms_receta.medica.dto.*;
-import com.example.ms_receta.medica.security.JwtUtil;
-import com.example.ms_receta.medica.service.RecetaMedicaService;
+import com.example.ms_receta_medica.dto.*;
+import com.example.ms_receta_medica.security.JwtUtil;
+import com.example.ms_receta_medica.service.RecetaMedicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
@@ -25,12 +25,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(RecetaMedicaController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("test")
-
-@EnableAutoConfiguration(exclude = {
-    EurekaClientAutoConfiguration.class,
-    EurekaDiscoveryClientConfiguration.class
-})
-
 public class RecetaMedicaControllerTest {
 
     @Autowired
