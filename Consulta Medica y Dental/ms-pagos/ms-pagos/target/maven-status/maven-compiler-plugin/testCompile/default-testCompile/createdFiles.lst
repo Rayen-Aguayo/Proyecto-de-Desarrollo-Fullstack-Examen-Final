@@ -1,0 +1,4 @@
+com\example\ms_pagos\controller\PagosControllerTest.class
+com\example\ms_pagos\repository\PagosRepositoryTest.class
+com\example\ms_pagos\service\PagosServiceTest.class
+com\example\ms_pagos\MsPagosApplicationTests.class
