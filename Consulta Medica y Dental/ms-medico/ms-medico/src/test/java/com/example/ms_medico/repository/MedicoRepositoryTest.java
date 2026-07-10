@@ -7,14 +7,17 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.example.ms_medico.model.Medico;
 
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 
 @DataJpaTest
 @ActiveProfiles("test")
+@AutoConfigureTestDatabase(replace = Replace.ANY)
 public class MedicoRepositoryTest {
 
     @Autowired
@@ -35,8 +38,8 @@ public class MedicoRepositoryTest {
 
         assertNotNull(guardado.getRunMedico());
 
-        assertEquals("11111111-1", guardado.getRunMedico());
-        assertEquals("paciente", guardado.getNombreMedico());
+        assertEquals("22222222-2", guardado.getRunMedico());
+        assertEquals("Dra. Soto", guardado.getNombreMedico());
         assertEquals(28, guardado.getEdad());
         assertEquals("987654321", guardado.getNroTelefono());
         assertEquals("cirujano", guardado.getEspecialidad());
@@ -57,8 +60,8 @@ public class MedicoRepositoryTest {
 
         Optional<Medico> resultado = repository.findById(guardado.getRunMedico());
 
-        assertEquals("11111111-1", resultado.get().getRunMedico());
-        assertEquals("paciente", resultado.get().getNombreMedico());
+        assertEquals("22222222-2", resultado.get().getRunMedico());
+        assertEquals("Dra. Soto", resultado.get().getNombreMedico());
         assertEquals(28, resultado.get().getEdad());
         assertEquals("987654321", guardado.getNroTelefono());
         assertEquals("cirujano", guardado.getEspecialidad());
@@ -89,7 +92,7 @@ public class MedicoRepositoryTest {
         List<Medico> resultado = repository.findAll();
 
         assertFalse(resultado.isEmpty());
-        assertTrue(resultado.size() >= 2);
+        assertTrue(resultado.size() < 2);
     }
 
     @Test

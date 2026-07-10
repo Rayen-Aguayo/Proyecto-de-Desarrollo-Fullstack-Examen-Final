@@ -30,7 +30,6 @@ public class PacienteControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    // CORRECCIÓN 2: objectMapper se usaba sin declarar — se agrega aquí
     @Autowired
     private ObjectMapper objectMapper;
 

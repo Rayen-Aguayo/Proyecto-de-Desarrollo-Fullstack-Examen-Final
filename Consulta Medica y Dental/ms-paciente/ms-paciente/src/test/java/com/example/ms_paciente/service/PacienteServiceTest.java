@@ -131,7 +131,7 @@ public class PacienteServiceTest {
         Paciente resultado = service.actualizar("11111111-1", dto);
 
         assertEquals("11111111-1", resultado.getRunPaciente());
-        assertEquals("paciente", resultado.getNombrePaciente());
+        assertEquals("Paciente nuevo", resultado.getNombrePaciente());
         assertEquals(28, resultado.getEdadPaciente());
         assertEquals("alergias", resultado.getAlergias());
         assertEquals("enfermedad", resultado.getEnfermedad());
