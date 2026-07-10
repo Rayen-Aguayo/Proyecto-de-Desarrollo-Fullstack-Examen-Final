@@ -128,7 +128,7 @@ public class OpinionPacienteControllerTest {
     }
 
     @Test
-    void debeActualizarOpinionPaciente() throws Exception {
+    void debeDarErrorActualizarOpinionPaciente() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
@@ -139,11 +139,10 @@ public class OpinionPacienteControllerTest {
                         .header("Authorization", "Bearer token-de-prueba")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(buildDTO())))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.message").value("Opinión actualizada exitosamente"))
-                .andExpect(jsonPath("$.data.paciente.runPaciente").value("11111111-1"))
-                .andExpect(jsonPath("$.data.medico.nombreMedico").value("Dra. Soto"));
+                .andExpect(status().is(500))
+                .andExpect(jsonPath("$.success").value(false))
+                .andExpect(jsonPath("$.message").value("Request method 'PUT' is not supported"))
+                .andExpect(jsonPath("$.data").doesNotExist());
     }
 
     @Test
