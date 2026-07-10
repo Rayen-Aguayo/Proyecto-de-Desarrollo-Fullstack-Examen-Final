@@ -30,9 +30,9 @@ public class GlobalExceptionHandler {
         );
     }
 
-    // 🔎 404
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ApiResponse<Object>> handleNotFound(RuntimeException ex) {
+    // 🔎 404 - solo para "no encontrado" real, no para cualquier RuntimeException
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<ApiResponse<Object>> handleNotFound(NoSuchElementException ex) {
         return ResponseEntity.status(404).body(
                 ApiResponse.builder()
                         .success(false)
@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(jakarta.persistence.EntityNotFoundException.class)
-    public ResponseEntity<ApiResponse<Object>> handle404(Exception ex) {
+    public ResponseEntity<ApiResponse<Object>> handle404(jakarta.persistence.EntityNotFoundException ex) {
         return ResponseEntity.status(404).body(
                 ApiResponse.builder()
                         .success(false)
@@ -51,7 +51,7 @@ public class GlobalExceptionHandler {
         );
     }
 
-    // 💥 500
+    // 💥 500 - cualquier otro error no controlado (incluye RuntimeException genéricas)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Object>> handleGeneral(Exception ex) {
         return ResponseEntity.status(500).body(
