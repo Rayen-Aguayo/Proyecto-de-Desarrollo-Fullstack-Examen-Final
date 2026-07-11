@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "RecetaMedica")
+@Table(name = "Receta_medica")
 public class RecetaMedica {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
