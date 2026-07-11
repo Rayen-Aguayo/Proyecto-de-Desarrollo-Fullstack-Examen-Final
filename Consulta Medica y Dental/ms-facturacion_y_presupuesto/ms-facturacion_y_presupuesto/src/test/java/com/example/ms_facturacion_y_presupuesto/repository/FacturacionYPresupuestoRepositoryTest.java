@@ -2,6 +2,7 @@ package com.example.ms_facturacion_y_presupuesto.repository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.example.ms_facturacion_y_presupuesto.model.FacturacionYPresupuesto;
@@ -13,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
 public class FacturacionYPresupuestoRepositoryTest {
 
@@ -21,59 +23,62 @@ public class FacturacionYPresupuestoRepositoryTest {
 
     @Test
     void debeGuardarFacturacionYPresupuesto() {
-    FacturacionYPresupuesto facYpre = new FacturacionYPresupuesto(
-        1L, 30.000, "paciente","11111111-1",
-         "medico","22222222-2","tratamiento",
-    8, "gestionPagos");
+        FacturacionYPresupuesto facYpre = new FacturacionYPresupuesto(
+            null, 30.000, "paciente", "11111111-1",
+            "medico", "22222222-2", "tratamiento",
+            8, "gestionPagos");
 
         FacturacionYPresupuesto guardado = repository.save(facYpre);
 
         assertNotNull(guardado.getId());
-    assertEquals(30.000, guardado.getPresupuesto());
+        assertEquals(30.000, guardado.getPresupuesto());
 
-    assertEquals("paciente", guardado.getNombrePaciente());
-    assertEquals("11111111-1", guardado.getRunPaciente());
+        assertEquals("paciente", guardado.getNombrePaciente());
+        assertEquals("11111111-1", guardado.getRunPaciente());
 
-    assertEquals("medico", guardado.getNombreMedico());
-    assertEquals("1-2", guardado.getRunMedico());
+        assertEquals("medico", guardado.getNombreMedico());
+        assertEquals("22222222-2", guardado.getRunMedico());
 
-    assertEquals("tratamiento", guardado.getTratamiento());
-    assertEquals(8, guardado.getDiasDuracion());
-    assertEquals("gestionPagos", guardado.getGestionPagos());
+        assertEquals("tratamiento", guardado.getTratamiento());
+        assertEquals(8, guardado.getDiasDuracion());
+        assertEquals("gestionPagos", guardado.getGestionPagos());
     }
 
     @Test
     void debeBuscarFacturacionYPresupuestoPorId() {
-    FacturacionYPresupuesto facYpre = new FacturacionYPresupuesto( 1L, 30.000, "paciente","1-1",
-     "medico","22222222-2","tratamiento",
-    8, "gestionPagos");
-        
+        FacturacionYPresupuesto facYpre = new FacturacionYPresupuesto(
+            null, 30.000, "paciente", "11111111-1",
+            "medico", "22222222-2", "tratamiento",
+            8, "gestionPagos");
+
         FacturacionYPresupuesto guardado = repository.save(facYpre);
 
         Optional<FacturacionYPresupuesto> resultado = repository.findById(guardado.getId());
 
         assertTrue(resultado.isPresent());
-    assertEquals(30.000, resultado.get().getPresupuesto());
+        assertEquals(30.000, resultado.get().getPresupuesto());
 
-    assertEquals("paciente", resultado.get().getNombrePaciente());
-    assertEquals("11111111-1", resultado.get().getRunPaciente());
+        assertEquals("paciente", resultado.get().getNombrePaciente());
+        assertEquals("11111111-1", resultado.get().getRunPaciente());
 
-    assertEquals("medico", resultado.get().getNombreMedico());
-    assertEquals("1-2", resultado.get().getRunMedico());
+        assertEquals("medico", resultado.get().getNombreMedico());
+        assertEquals("22222222-2", resultado.get().getRunMedico());
 
-    assertEquals("tratamiento", resultado.get().getTratamiento());
-    assertEquals(8, resultado.get().getDiasDuracion());
-    assertEquals("gestionPagos", resultado.get().getGestionPagos());
+        assertEquals("tratamiento", resultado.get().getTratamiento());
+        assertEquals(8, resultado.get().getDiasDuracion());
+        assertEquals("gestionPagos", resultado.get().getGestionPagos());
     }
 
     @Test
     void debeListarFacturacionYPresupuesto() {
-        repository.save(new FacturacionYPresupuesto( 1L, 30.000, "paciente","1-1",
-     "medico","22222222-2","tratamiento",
-    8, "gestionPagos"));
-        repository.save(new FacturacionYPresupuesto( 1L, 30.000, "paciente","1-1",
-     "medico","22222222-2","tratamiento",
-    8, "gestionPagos"));
+        repository.save(new FacturacionYPresupuesto(
+            null, 30.000, "paciente", "11111111-1",
+            "medico", "22222222-2", "tratamiento",
+            8, "gestionPagos"));
+        repository.save(new FacturacionYPresupuesto(
+            null, 30.000, "paciente", "11111111-1",
+            "medico", "22222222-2", "tratamiento",
+            8, "gestionPagos"));
 
         List<FacturacionYPresupuesto> resultado = repository.findAll();
 
@@ -83,9 +88,10 @@ public class FacturacionYPresupuestoRepositoryTest {
 
     @Test
     void debeEliminarFacturacionYPresupuesto() {
-        FacturacionYPresupuesto facypre = new FacturacionYPresupuesto( 1L, 30.000, "paciente","1-1",
-     "medico","22222222-2","tratamiento",
-    8, "gestionPagos");
+        FacturacionYPresupuesto facypre = new FacturacionYPresupuesto(
+            null, 30.000, "paciente", "11111111-1",
+            "medico", "22222222-2", "tratamiento",
+            8, "gestionPagos");
 
         FacturacionYPresupuesto guardado = repository.save(facypre);
 
@@ -95,4 +101,3 @@ public class FacturacionYPresupuestoRepositoryTest {
         assertFalse(resultado.isPresent());
     }
 }
-

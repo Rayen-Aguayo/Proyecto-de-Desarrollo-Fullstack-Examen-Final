@@ -98,6 +98,9 @@ public class FacturacionYPresupuestoService {
     }
 
     public void eliminar(Long id) {
+        if (!repository.existsById(id)) {
+            throw new EntityNotFoundException("Facturacion y presupuesto no encontrado");
+        }
         repository.deleteById(id);
     }
 

@@ -105,7 +105,7 @@ void deberiaRetornarListaFacturacionYPresupuesto() {
     // Arrange
     String tokenDePrueba = "Bearer token-prueba";
 
-    FacturacionYPresupuesto facYpre = new FacturacionYPresupuesto( 1L, 30.000, "paciente","1-1",
+    FacturacionYPresupuesto facYpre = new FacturacionYPresupuesto( 1L, 30.000, "paciente","11111111-1",
      "medico","22222222-2","tratamiento",
     8, "gestionPagos");
 
@@ -124,7 +124,7 @@ void deberiaRetornarListaFacturacionYPresupuesto() {
     when(medicoClient.getMedicoClient("22222222-2", tokenDePrueba)).thenReturn(medicoResponse);
 
     // Act
-    List<FacturacionYPresupuestoResponse> resultado = service.listar(null);
+    List<FacturacionYPresupuestoResponse> resultado = service.listar(tokenDePrueba);
 
     // Assert
     assertFalse(resultado.isEmpty());
@@ -191,7 +191,7 @@ void deberiaCrearFacturacionYPresupuestoCorrectamente() {
 
     when(medicoClient.getMedicoClient("22222222-2", tokenDePrueba)).thenReturn(medicoResponse);
 
-    FacturacionYPresupuesto Guardado = new FacturacionYPresupuesto(1L, 30.000, "paciente","1-1",
+    FacturacionYPresupuesto Guardado = new FacturacionYPresupuesto(1L, 30.000, "paciente","11111111-1",
      "medico","22222222-2","tratamiento",
     8, "gestionPagos");
     when(repo.save(any(FacturacionYPresupuesto.class))).thenReturn(Guardado);
@@ -210,7 +210,7 @@ void deberiaCrearFacturacionYPresupuestoCorrectamente() {
 
     assertNotNull(resultado.getMedico());
     assertEquals("medico", resultado.getMedico().getNombreMedico());
-    assertEquals("1-2", resultado.getMedico().getRunMedico());
+    assertEquals("22222222-2", resultado.getMedico().getRunMedico());
 
     assertEquals("tratamiento", resultado.getTratamiento());
     assertEquals(8, resultado.getDiasDuracion());
@@ -228,7 +228,6 @@ void deberiaLanzarExcepcionCuandoPacienteNoExisteAlCrear() {
     when(pacienteClient.getPacienteClient("11111111-1", tokenDePrueba)).thenReturn(null); 
 
     dto.setRunMedico("22222222-2");
-    when(medicoClient.getMedicoClient("22222222-2", tokenDePrueba)).thenReturn(null); 
 
     // Act + Assert
     RuntimeException ex = assertThrows(
@@ -247,7 +246,11 @@ void deberiaLanzarExcepcionCuandoMedicoNoExisteAlCrear() {
     String tokenDePrueba = "Bearer token-prueba";
     
     dto.setRunPaciente("11111111-1");
-    when(pacienteClient.getPacienteClient("11111111-1", tokenDePrueba)).thenReturn(null);
+
+    PacienteResponse pacienteResponse = new PacienteResponse();
+    pacienteResponse.setRunPaciente("11111111-1");
+    pacienteResponse.setNombrePaciente("paciente");
+    when(pacienteClient.getPacienteClient("11111111-1", tokenDePrueba)).thenReturn(pacienteResponse);
 
     dto.setRunMedico("22222222-2");
     
@@ -258,7 +261,7 @@ void deberiaLanzarExcepcionCuandoMedicoNoExisteAlCrear() {
             () -> service.crear(dto, tokenDePrueba)
     );
 
-    assertEquals("El médico no existe no se puede crear la facturacion y el presupuesto", ex.getMessage());
+    assertEquals("El médico no existe", ex.getMessage());
     verify(repo, never()).save(any());
 }
 
@@ -333,12 +336,7 @@ void deberiaLanzarExcepcionCuandoFacturacionYPresupuestoNoSeActualizoCorectament
     paciente.setRunPaciente("11111111-1");
     paciente.setNombrePaciente("Juan Pérez");
 
-    MedicoResponse medico = new MedicoResponse();
-    medico.setRunMedico("22222222-2");
-    medico.setNombreMedico("Dra. Soto");
-
     when(pacienteClient.getPacienteClient("11111111-1", tokenDePrueba)).thenReturn(paciente);
-    when(medicoClient.getMedicoClient("22222222-2", tokenDePrueba)).thenReturn(medico);
     when(repo.findById(99L)).thenReturn(Optional.empty());
 
     // Act + Assert
@@ -354,13 +352,14 @@ void deberiaLanzarExcepcionCuandoFacturacionYPresupuestoNoSeActualizoCorectament
 @Test
 void deberiaEliminarFacturacionYPresupuestoPorId() {
     // Arrange
-    
+    when(repo.existsById(1L)).thenReturn(true);
     doNothing().when(repo).deleteById(1L);
 
     // Act
     service.eliminar(1L);
 
     // Assert
+    verify(repo).existsById(1L);
     verify(repo).deleteById(1L);
 }
 

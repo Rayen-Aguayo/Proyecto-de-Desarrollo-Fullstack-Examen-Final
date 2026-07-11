@@ -9,13 +9,14 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.example.ms_reserva_y_anular_hora.model.PedirHora;
 
-
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
 class PedirHoraRepositoryTest {
 
@@ -38,7 +39,6 @@ class PedirHoraRepositoryTest {
     @Test
     void debeGuardarReservaHora() {
         PedirHora guardada = repository.save(horaEjemplo());
-
         assertNotNull(guardada.getId());
         assertEquals("11111111-1", guardada.getRunPaciente());
         assertEquals("Juan Pérez", guardada.getNombrePaciente());
@@ -48,9 +48,7 @@ class PedirHoraRepositoryTest {
     @Test
     void debeBuscarReservaPorId() {
         PedirHora guardada = repository.save(horaEjemplo());
-
         Optional<PedirHora> resultado = repository.findById(guardada.getId());
-
         assertTrue(resultado.isPresent());
         assertEquals("11111111-1", resultado.get().getRunPaciente());
         assertEquals("Dra. Soto", resultado.get().getNombreMedico());
@@ -69,9 +67,7 @@ class PedirHoraRepositoryTest {
             LocalTime.of(9, 0),
             "Control dental"
         ));
-
         List<PedirHora> resultado = repository.findAll();
-
         assertFalse(resultado.isEmpty());
         assertTrue(resultado.size() >= 2);
     }
@@ -79,9 +75,7 @@ class PedirHoraRepositoryTest {
     @Test
     void debeEliminarReserva() {
         PedirHora guardada = repository.save(horaEjemplo());
-
         repository.deleteById(guardada.getId());
-
         Optional<PedirHora> resultado = repository.findById(guardada.getId());
         assertFalse(resultado.isPresent());
     }
