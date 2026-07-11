@@ -18,7 +18,9 @@ microservicios implementados
 * Facturación y Presupuesto
 * Registro de materiales
 * Pagos
+  
 enlaces de documentacion swagger
+
 Paciente: http://localhost:8085/swagger-ui/index.html
 Médico: http://localhost:8082/swagger-ui/index.html 
 Ficha médica: http://localhost:8083/swagger-ui/index.html
