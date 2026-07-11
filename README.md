@@ -27,18 +27,18 @@ Médico: http://localhost:8082/swagger-ui/index.html
 
 Ficha médica: http://localhost:8083/swagger-ui/index.html
 
-Reservar y anular hora: http://localhost:8090/swagger-ui/index.html ****
+Reservar y anular hora: http://localhost:8090/swagger-ui/index.html 
 
-Receta Médica: http://localhost:8086/swagger-ui/index.html ///
+Receta Médica: http://localhost:8087/swagger-ui/index.html 
 
 Opinión del Paciente: http://localhost:8084/swagger-ui/index.html
 
-Registro de atenciones: http://localhost:8090/swagger-ui/index.html ********
+Registro de atenciones: http://localhost:8088/swagger-ui/index.html 
 
 Facturación y Presupuesto: http://localhost:8081/swagger-ui/index.html
 
-Registro de materiales: http://localhost:8085/swagger-ui/index.html *****
+Registro de materiales: http://localhost:8089/swagger-ui/index.html 
 
-Pagos: http://localhost:8086/swagger-ui/index.html ////
+Pagos: http://localhost:8086/swagger-ui/index.html
 total 
 estado 
