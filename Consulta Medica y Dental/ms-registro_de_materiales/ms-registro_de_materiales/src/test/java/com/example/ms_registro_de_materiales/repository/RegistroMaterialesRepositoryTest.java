@@ -13,8 +13,15 @@ import org.springframework.test.context.ActiveProfiles;
 
 import com.example.ms_registro_de_materiales.model.RegistroMateriales;
 
+import org.springframework.test.context.TestPropertySource;
+
 @DataJpaTest
 @ActiveProfiles("test")
+@TestPropertySource(properties = {
+    "spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect",
+    "spring.jpa.database-platform=org.hibernate.dialect.H2Dialect",
+    "spring.flyway.enabled=false"
+})
 class RegistroMaterialesRepositoryTest {
 
     @Autowired
