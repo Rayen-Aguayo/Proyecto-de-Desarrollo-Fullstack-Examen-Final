@@ -1,0 +1,4 @@
+com\example\ms_receta_medica\controller\RecetaMedicaControllerTest.class
+com\example\ms_receta_medica\repository\RecetaMedicaRepositoryTest.class
+com\example\ms_receta_medica\MsRecetaMedicaApplicationTests.class
+com\example\ms_receta_medica\service\RecetaMedicaServiceTest.class

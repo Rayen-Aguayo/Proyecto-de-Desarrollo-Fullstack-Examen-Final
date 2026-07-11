@@ -1,0 +1,3 @@
+com\example\service\FichaMedicaServiceTest.class
+com\example\ms_ficha_medica\repository\FichaMedicaRepositoryTest.class
+com\example\ms_ficha_medica\controller\FichaMedicaControllerTest.class

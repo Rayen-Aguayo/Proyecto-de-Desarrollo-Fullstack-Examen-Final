@@ -1,4 +1,4 @@
-﻿services:
+services:
 
   # --- BASES DE DATOS ---
 
@@ -211,7 +211,7 @@
       - consulta-medica-net
 
   ms-gateway:
-    build: ./ms-gateway
+    build: ./ms-gateway/ms-gateway
     container_name: ms-gateway
     ports:
       - "8091:8091"
@@ -246,7 +246,7 @@
       - consulta-medica-net
 
   ms-facturacion:
-    build: ./ms-facturación y presupuesto
+    build: ./ms-facturacion_y_presupuesto/ms-facturacion_y_presupuesto
     container_name: ms-facturacion
     ports:
       - "8081:8081"
@@ -267,7 +267,7 @@
       - consulta-medica-net
 
   ms-ficha-medica:
-    build: ./ms-ficha medica
+    build: ./ms-ficha_medica/ms-ficha_medica
     container_name: ms-ficha-medica
     ports:
       - "8083:8083"
@@ -288,7 +288,7 @@
       - consulta-medica-net
 
   ms-medico:
-    build: ./ms-medico
+    build: ./ms-medico/ms-medico
     container_name: ms-medico
     ports:
       - "8082:8082"
@@ -309,7 +309,7 @@
       - consulta-medica-net
 
   ms-opinion:
-    build: ./ms-opinión del paciente
+    build: ./ms-opinion_del_paciente/ms-opinion_del_paciente
     container_name: ms-opinion
     ports:
       - "8084:8084"
@@ -330,7 +330,7 @@
       - consulta-medica-net
 
   ms-paciente:
-    build: ./ms-paciente
+    build: ./ms-paciente/ms-paciente
     container_name: ms-paciente
     ports:
       - "8085:8085"
@@ -351,7 +351,7 @@
       - consulta-medica-net
 
   ms-pagos:
-    build: ./ms-pagos
+    build: ./ms-pagos/ms-pagos
     container_name: ms-pagos
     ports:
       - "8086:8086"
@@ -372,7 +372,7 @@
       - consulta-medica-net
 
   ms-receta-medica:
-    build: ./ms-receta medica
+    build: ./ms-receta_medica/ms-receta_medica
     container_name: ms-receta-medica
     ports:
       - "8087:8087"
@@ -393,7 +393,7 @@
       - consulta-medica-net
 
   ms-registro-atenciones:
-    build: ./ms-registro de atenciones
+    build: ./ms-registro_de_atenciones/ms-registro_de_atenciones
     container_name: ms-registro-atenciones
     ports:
       - "8088:8088"
@@ -414,7 +414,7 @@
       - consulta-medica-net
 
   ms-registro-materiales:
-    build: ./ms-registro de materiales
+    build: ./ms-registro_de_materiales/ms-registro_de_materiales
     container_name: ms-registro-materiales
     ports:
       - "8089:8089"
@@ -435,7 +435,7 @@
       - consulta-medica-net
 
   ms-reserva:
-    build: ./ms-reserva y anular hora
+    build: ./ms-reserva_y_anular_hora/ms-reserva_y_anular_hora
     container_name: ms-reserva
     ports:
       - "8090:8090"
@@ -471,3 +471,4 @@ volumes:
 networks:
   consulta-medica-net:
     driver: bridge
+
