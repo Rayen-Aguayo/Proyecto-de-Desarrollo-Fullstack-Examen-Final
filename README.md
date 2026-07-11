@@ -40,5 +40,3 @@ Facturación y Presupuesto: http://localhost:8081/swagger-ui/index.html
 Registro de materiales: http://localhost:8089/swagger-ui/index.html 
 
 Pagos: http://localhost:8086/swagger-ui/index.html
-total 
-estado 
