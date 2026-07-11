@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.example.ms_facturacion_y_presupuesto.service.FacturacionYPresupuestoServiceTest
--------------------------------------------------------------------------------
-Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.529 s -- in com.example.ms_facturacion_y_presupuesto.service.FacturacionYPresupuestoServiceTest
