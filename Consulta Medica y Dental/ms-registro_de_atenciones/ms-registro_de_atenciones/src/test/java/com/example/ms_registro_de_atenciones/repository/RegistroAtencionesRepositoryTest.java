@@ -14,8 +14,15 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.springframework.test.context.TestPropertySource;
+
 @DataJpaTest
 @ActiveProfiles("test")
+@TestPropertySource(properties = {
+    "spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect",
+    "spring.jpa.database-platform=org.hibernate.dialect.H2Dialect",
+    "spring.flyway.enabled=false"
+})
 public class RegistroAtencionesRepositoryTest {
 
     @Autowired
