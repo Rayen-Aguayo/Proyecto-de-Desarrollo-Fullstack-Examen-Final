@@ -37,6 +37,8 @@ Facturación y Presupuesto: http://localhost:8081/swagger-ui/index.html
 
 Registro de materiales: http://localhost:8089/swagger-ui/index.html 
 
+Pagos: http://localhost:8086/swagger-ui/index.html
+
 principales enlaces del gateway
 
 registrar usuario : localhost:8091/auth/register
@@ -66,6 +68,3 @@ crear reguistro de materiales: localhost:8091/api/v1/registrosMateriales
 crear registro de atenciones: localhost:8091/api/v1/registro-atenciones
 
 crear reserva de hora: localhost:8091/api/v1/reservar-y-anular-hora
-
-
-Pagos: http://localhost:8086/swagger-ui/index.html
