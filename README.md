@@ -37,4 +37,35 @@ Facturación y Presupuesto: http://localhost:8081/swagger-ui/index.html
 
 Registro de materiales: http://localhost:8089/swagger-ui/index.html 
 
+principales enlaces del gateway
+
+registrar usuario : localhost:8091/auth/register
+
+login del usuario: localhost:8091/auth/login
+
+lista de medicos: localhost:8091/api/v1/medicos
+
+registrar medico: localhost:8091/api/v1/medicos
+
+lista de pacientes: localhost:8091/api/v1/pacientes
+
+registrar paciente: localhost:8091/api/v1/pacientes
+
+crear facturacion y presupuesto: localhost:8091/api/v1/facturacio-y-presupuesto
+
+crear ficha medica: localhost:8091/api/v1/fichas_medicas
+
+crear opinion del paciente: localhost:8091/api/v1/opiniones
+
+crear pago: localhost:8091/api/v1/pagos
+
+crear receta medica: localhost:8091/api/v1/recetasMedicas
+
+crear reguistro de materiales: localhost:8091/api/v1/registrosMateriales
+
+crear registro de atenciones: localhost:8091/api/v1/registro-atenciones
+
+crear reserva de hora: localhost:8091/api/v1/reservar-y-anular-hora
+
+
 Pagos: http://localhost:8086/swagger-ui/index.html
